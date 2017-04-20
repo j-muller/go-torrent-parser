@@ -19,23 +19,17 @@ type InfoMetadata struct {
 	Name   string `bencode:"name"`
 	Length int64  `bencode:"length"`
 
-	Files bencode.RawMessage `bencode:"files"`
 	// multi file context
-	// Files *FileMetadata `bencode:"files"`
+	Files bencode.RawMessage `bencode:"files"`
 }
 
 type Metadata struct {
-	Announce     string   `bencode:"announce"`
-	AnnounceList []string `bencode:"announce-list"`
-	Comment      string   `bencode:"comment"`
-	CreatedBy    string   `bencode:"created by"`
-	// Name      string `bencode:"name"`
-	CreatedAt int64              `bencode:"creation date"`
-	Info      bencode.RawMessage `bencode:"info"`
-	// Info      interface{}        `bencode:"info"`
-	// InfoHash  string
-	// Private   int64   `bencode:"private"`
-	// Files     []*File `bencode:"files"`
+	Announce     string             `bencode:"announce"`
+	AnnounceList []string           `bencode:"announce-list"`
+	Comment      string             `bencode:"comment"`
+	CreatedBy    string             `bencode:"created by"`
+	CreatedAt    int64              `bencode:"creation date"`
+	Info         bencode.RawMessage `bencode:"info"`
 }
 
 type File struct {
