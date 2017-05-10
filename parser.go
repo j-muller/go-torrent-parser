@@ -27,26 +27,27 @@ func Parse(reader io.Reader) (*Torrent, error) {
 		return nil, err
 	}
 
-	metadataFiles := make([]*FileMetadata, 0)
-	err = bencode.DecodeBytes(info.Files, &metadataFiles)
-	if err != nil {
-		return nil, err
-	}
-
 	files := make([]*File, 0)
 
-	if len(metadataFiles) > 0 {
+	// single file context
+	if info.Length > 0 {
+		files = append(files, &File{
+			Path:   []string{info.Name},
+			Length: info.Length,
+		})
+	} else {
+		metadataFiles := make([]*FileMetadata, 0)
+		err = bencode.DecodeBytes(info.Files, &metadataFiles)
+		if err != nil {
+			return nil, err
+		}
+
 		for _, f := range metadataFiles {
 			files = append(files, &File{
 				Path:   append([]string{info.Name}, f.Path...),
 				Length: f.Length,
 			})
 		}
-	} else {
-		files = append(files, &File{
-			Path:   []string{info.Name},
-			Length: info.Length,
-		})
 	}
 
 	return &Torrent{
