@@ -50,8 +50,20 @@ func Parse(reader io.Reader) (*Torrent, error) {
 		}
 	}
 
+	announces := make([]string, 0)
+
+	if len(metadata.AnnounceList) > 0 {
+		for _, announceItem := range metadata.AnnounceList {
+			for _, announce := range announceItem {
+				announces = append(announces, announce)
+			}
+		}
+	} else {
+		announces = append(announces, metadata.Announce)
+	}
+
 	return &Torrent{
-		Announce:  metadata.Announce,
+		Announce:  announces,
 		Comment:   metadata.Comment,
 		CreatedBy: metadata.CreatedBy,
 		CreatedAt: time.Unix(metadata.CreatedAt, 0),

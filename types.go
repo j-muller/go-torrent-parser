@@ -24,8 +24,9 @@ type InfoMetadata struct {
 }
 
 type Metadata struct {
+	// Foobar   []interface{} `bencode:"announce-list"`
 	Announce     string             `bencode:"announce"`
-	AnnounceList []string           `bencode:"announce-list"`
+	AnnounceList [][]string         `bencode:"announce-list"`
 	Comment      string             `bencode:"comment"`
 	CreatedBy    string             `bencode:"created by"`
 	CreatedAt    int64              `bencode:"creation date"`
@@ -42,7 +43,7 @@ type File struct {
 
 type Torrent struct {
 	// Announce URL
-	Announce string
+	Announce []string
 
 	// Torrent comment
 	Comment string
