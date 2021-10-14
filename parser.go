@@ -27,6 +27,10 @@ func Parse(reader io.Reader) (*Torrent, error) {
 		return nil, err
 	}
 
+	if len(info.NameUtf8) != 0 {
+		info.Name = info.NameUtf8
+	}
+
 	files := make([]*File, 0)
 
 	// single file context
@@ -43,6 +47,9 @@ func Parse(reader io.Reader) (*Torrent, error) {
 		}
 
 		for _, f := range metadataFiles {
+			if len(f.PathUtf8) != 0 {
+				f.Path = f.PathUtf8
+			}
 			files = append(files, &File{
 				Path:   append([]string{info.Name}, f.Path...),
 				Length: f.Length,

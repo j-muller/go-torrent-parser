@@ -8,6 +8,7 @@ import (
 
 type FileMetadata struct {
 	Path   []string `bencode:"path"`
+	PathUtf8   []string `bencode:"path.utf-8"`
 	Length int64    `bencode:"length"`
 }
 
@@ -17,6 +18,7 @@ type InfoMetadata struct {
 
 	// single file context
 	Name   string `bencode:"name"`
+	NameUtf8   string `bencode:"name.utf-8"`
 	Length int64  `bencode:"length"`
 
 	// multi file context
